@@ -193,7 +193,8 @@ var editTask = function(taskId) {
     var taskListEl = event.target.closest(".task-list");
     if (taskListEl) {
       event.preventDefault();
-      console.dir(taskListEl);
+      taskListEl.removeAttribute("style");
+      
     }
   };
 
@@ -213,10 +214,15 @@ var editTask = function(taskId) {
       else if (statusType === "tasks-completed") {
         statusSelectEl.selectedIndex = 2;
       }
+      //style removal 
+      dropZoneEl.removeAttribute("style");
+
       dropZoneEl.appendChild(draggableElement);
   };
-
-
+//definition dragLeaveHandler event function
+  var dragLeaveHandler = function(event) {
+    console.dir(event.target);
+  }
 pageContentEl.addEventListener("click", taskButtonHandler);
 formEl.removeAttribute("data-task-id");
 document.querySelector("#save-task").textContent = "Add Task";
@@ -226,3 +232,4 @@ pageContentEl.addEventListener("change", taskStatusChangeHandler);
 pageContentEl.addEventListener("dragstart", dragTaskHandler);
 pageContentEl.addEventListener("dragover", dropZoneDragHandler);
 pageContentEl.addEventListener("drop", dropTaskHandler);
+pageContentEl.addEventListener("dragleave", dragLeaveHandler);
